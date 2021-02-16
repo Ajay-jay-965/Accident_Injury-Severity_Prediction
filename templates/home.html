@@ -1,0 +1,399 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Injury Severity Prediction</title>
+
+
+    <!-- BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+
+    <!-- css -->
+    <link rel="stylesheet" href="static/css/styles.css">
+
+
+</head>
+
+<body>
+
+    <!-- As a heading -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Accident Injury Severity</a>
+            </div>
+        </div>
+    </nav>
+
+    <br><br><br>
+
+
+    <div class="container">
+
+
+
+        <form action="\predict" method="post">
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Person Age</h5>
+                            <!-- Departure -->
+                            <input type="number" name="AGE" id="AGE" value="0" min="0" max="99" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Gender</h5>
+                            <!-- Destination -->
+                            <select name="SEX" id="SEX" required="required">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+                
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Source -->
+                            <h5 class="card-title">Person Type</h5>
+                            <select name="PERSON_TYPE" id="PERSON_TYPE" required="required">
+                                <option value="Driver">Driver</option>
+                                <option value="Passenger_of_a_Motor_Vehicle_in_Transport">Passenger of a Motor Vehicle in Transport</option>
+                                <option value="Pedestrian">Pedestrian</option>
+                                <option value="Bicyclist">Bicyclist</option>
+                                <option value="Unknown_Occupant_Type_in_a_Motor_Vehicle_in_Transport">Unknown Occupant Type in a Motor Vehicle in Transport</option>
+                                <option value="Occupant_of_a_Motor_Vehicle_Not_in_Transport">Occupant of a Motor Vehicle Not in Transport</option>
+                                <option value="Other_Pedestrian">Other Pedestrian</option>
+                                <option value="Occupant_of_a_Non_Motor_Vehicle_Transport_Device">Occupant of a Non-Motor Vehicle</option>
+                                <option value="Other_Cyclist">Other Cyclist</option>
+                                <option value="Unknown_Type_of_Non_Motorist">Unknown Type of Non-Motorist</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Seating Postion</h5>
+                            <!-- Destination -->
+                            <select name="SEATING_POSITION" id="SEATING_POSITION" required="required">
+                                <option value="Front_Seat_Drivers_Side">Front Seat Drivers Side</option>
+                                <option value="Front_Seat_Right_Side">Front Seat Right Side</option>
+                                <option value="Front_Seat_Middle">Front Seat Middle</option>
+                                <option value="Second_Seat_Right_Side">Second Seat Right Side</option>
+                                <option value="Second_Seat_Left_Side">Second Seat Left Side</option>
+                                <option value="Second_Seat_Middle">Second Seat Middle</option>
+                                <option value="Other_Passenger_in_enclosed_cargo_area">Other Passenger in enclosed cargo area</option>
+                                <option value="Other_Passenger_in_unenclosed_cargo_area">Other Passenger in unenclosed cargo area</option>
+                                <option value="Non_Motorist">Non Motorist</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Restraint System Used?</h5>
+                            <!-- Total Stops -->
+                            <select name="RESTRAINT_SYSTEM_USE" id="RESTRAINT_SYSTEM_USE" required="required">
+                                <option value="Lap_and_Shoulder_Belt">Lap and Shoulder Belt</option>
+                                <option value="Restraint_Used_Type_Unknown">Used but Type Unknown</option>
+                                <option value="Lap_Belt">Lap Belt</option>
+                                <option value="Motorcycle_Helmet">Motorcycle Helmet</option>
+                                <option value="Child_Safety_Seat">Child Safety Seat</option>
+                                <option value="Child_Safety_Seat_Used_Improperly">Child Safety Seat Used Improperly</option>
+                                <option value="Shoulder_Belt">Shoulder Belt</option>
+                                <option value="Safety_Belt_Used_Improperly">Safety Belt Used Improperly</option>
+                                <option value="None_Used">None Used</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Air Bag Availability?</h5>
+                            <!-- Airline -->
+                            <select name="AIR_BAG_AVAILABILITY" id="AIR_BAG_AVAILABILITY" required="required">
+                                <option value="Air_Bag_Not_Available_for_this_Seat">Not Available for this seat</option>
+                                <option value="Deployed_Air_Bag_from_Front">Deployed from Front</option>
+                                <option value="Air_Bag_Available_but_Not_Deployed">Available but not Deployed</option>
+                                <option value="Air_Bag_Available_Deployment_Not_Known">Available but Deployment Not Known</option>
+                                <option value="Non_Motorist">Non-Motorist</option>
+                                <option value="Deployed_Air_Bag_Multiple_Directions">Deployed from Multiple Directions</option>
+                                <option value="Deployed_Air_Bag_from_Side">Deployed from Side</option>
+                                <option value="Deployed_Air_Bag_Direction_Unknown">Deployed but Direction Unknown
+                                </option>   
+                                <option value="Air_Bag_Available_and_Switched_Off">Available and Switched Off</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            <!-- Submit -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Source -->
+                            <h5 class="card-title">Ejection</h5>
+                            <select name="EJECTION" id="EJECTION" required="required">
+                                <option value="Not_Ejected">Not Ejected</option>
+                                <option value="Totally_Ejected">Totally Ejected</option>
+                                <option value="Partially_Ejected">Partially Ejected</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Non-Motorist Location?</h5>
+                            <!-- Destination -->
+                            <select name="NON_MOTORIST_LOCATION" id="NON_MOTORIST_LOCATION" required="required">
+                                <option value="Not_Applicable_Vehicle_Occupant">Not Applicable Vehicle Occupant</option>
+                                <option value="Non_Intersection_On_Roadway_Crosswalk_not_Available">Non-Intersection on Roadway Crosswalk not Available</option>
+                                <option value="Non_Intersection_On_Roadway_Crosswalk_Availability_Unknown">Non-Intersection On Roadway Crosswalk Availability Unknown</option>
+                                <option value="Non_Intersection_On_Roadway_Not_in_Crosswalk">Non-Intersection On Roadway Not in Crosswalk</option>
+                                <option value="Non_Intersection_On_Road_Shoulder">Non-Intersection On Road Shoulder</option>
+                                <option value="Intersection_In_Crosswalk">Intersection In Crosswalk</option>
+                                <option value="Intersection_On_Roadway_Crosswalk_Availability_Unknown">Intersection On Roadway Crosswalk Availability Unknown</option>
+                                <option value="Intersection_On_Roadway_Not_in_Crosswalk">Intersection On Roadway Not in Crosswalk</option>
+                                <option value="Non_Intersection_Other_Not_a_Roadway">Non-Intersection(Other Not a Roadway)</option>
+                                <option value="Intersection_On_Roadway_Crosswalk_not_Available">Intersection On Roadway Crosswalk not Available</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Source -->
+                            <h5 class="card-title">Police reported Alcohol involvement?</h5>
+                            <select name="POLICE_REPORTED_ALCOHOL_INVOLVEMENT" id="POLICE_REPORTED_ALCOHOL_INVOLVEMENT" required="required">
+                                <option value="Not_reported">Not reported</option>
+                                <option value="No">No Alcohol</option>
+                                <option value="Yes">Alcohol Involved</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Police reported Drug involvement?</h5>
+                            <select name="POLICE_REPORTED_DRUG_INVOLVEMENT" id="POLICE_REPORTED_DRUG_INVOLVEMENT" required="required">
+                                <option value="Not_reported">Not reported</option>
+                                <option value="No_Drugs">No Drugs</option>
+                                <option value="Drugs_Involved">Drugs Involved</option>
+                                <option value="Reported_Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Source -->
+                            <h5 class="card-title">Alcohol test type</h5>
+                            <select name="ALCOHOL_TEST_TYPE" id="ALCOHOL_TEST_TYPE" required="required">
+                                <option value="Not_Tested_for_Alcohol">Not Tested for Alcohol</option>
+                                <option value="Whole_Blood">Blood</option>
+                                <option value="Breath_BAC">Breath_BAC</option>
+                                <option value="Urine">Urine</option>
+                                <option value="Vitreous">Vitreous</option>
+                                <option value="Blood_Plasma_or_Serum">Blood_Plasma/Serum</option>
+                                <option value="Liver">Liver</option>
+                                <option value="Blood_Clot">Blood Clot</option>
+                                <option value="Other_Test_Type">Other Type</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Drug test type</h5>
+                            <!-- Destination -->
+                            <select name="DRUG_TEST_TYPE" id="DRUG_TEST_TYPE" required="required">
+                                <option value="Not_Tested_for_Drugs">Not Tested for Drugs</option>
+                                <option value="Blood_Test">Blood Test</option>
+                                <option value="Unknown_if_Tested_for_Drugs">Unknown if Tested or Not</option>
+                                <option value="Urine_Test">Urine Test</option>
+                                <option value="Both_Blood_and_Urine">Both Blood and Urine</option>
+                                <option value="Other_Type_Test">Other Type</option>
+                                <option value="Unknown_Test_Type">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Alcohol Test Result</h5>
+                            <!-- Departure -->
+                            <input type="number" name="ALCOHOL_TEST_RESULT" id="ALCOHOL_TEST_RESULT" value="0" min="0" max="99" required="required">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Drug Test Result</h5>
+                            <!-- Arrival -->
+                            <input type="number" name="DRUG_TEST_RESULT" id="DRUG_TEST_RESULT" value="0" min="0" max="999" required="required">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+            <br>
+            
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <!-- Source -->
+                            <h5 class="card-title">Related Factor Person Level</h5>
+                            <select name="RELATED_FACTOR_PERSON_LEVEL" id="RELATED_FACTOR_PERSON_LEVEL" required="required">
+                                <option value="Not_Applicable_Driver">Not Applicable to Driver</option>
+                                <option value="Improper_Crossing_or_Roadway">Improper Crossing</option>
+                                <option value="Walking_or_Riding_with_or_Against_Traffic_or_Playing_in_Roadway">Walking/Riding against traffic/Playing in Roadway</option>
+                                <option value="Running_into_Road">Running into Road</option>
+                                <option value="Not_Visible">Not Visible</option>
+                                <option value="Failure_to_Yield_Right_of_Way">Failure to Yield Right Way</option>
+                                <option value="Inattentive">Inattentive</option>
+                                <option value="Failure_to_Obey_Traffic_Sign_Traffic_Officers_Failure_to_Observe">Failure to obey traffic rules</option>
+                                <option value="Interfering_with_Driver">Interfering with Driver</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Taken to Hospital?</h5>
+                            <!-- Destination -->
+                            <select name="TAKEN_TO_HOSPITAL" id="TAKEN_TO_HOSPITAL" required="required">
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                                <option value="Unknown">Unknown</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <br>
+            <br>
+            <br>
+            
+            <!-- Submit -->
+            <input type="submit" value="Submit" class="btn btn-secondary">
+            
+        </form>
+
+        <br>
+        <br>
+        <h3>{{ prediction_text }}</h3>
+
+        <br>
+        <br>
+        <p>©2021 Quintet Coders</p>
+
+    </div>
+
+
+
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
+
+
